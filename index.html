@@ -1,0 +1,546 @@
+<html>
+	<head>
+		<title>Jogo da Velha</title>
+		<meta charset="utf-8"/>
+		 <style>
+			
+			.tabuleiro_campo{
+				width:550px; 
+				height:450px;
+				margin: 0 auto;
+			}
+			
+			.tabuleiro.tr{
+				font:bold 46px Verdana;
+				color:black;
+			}
+			
+			input[type=button] {width:150px; height:50px; font-size:20px; font-weight:bold; margin-bottom:20px}
+			fieldset {font-size:20; font-weight:bold; border:2px solid blue; width: 300px; }			
+			
+			.borda_tabuleiro_centro{
+				border:1px solid black;
+				text-align:center; 
+				width:33.33%;
+				height: 150px;
+			}			
+			.borda_tabuleiro_superior_esquerdo{
+				border-bottom:1px solid black;
+				border-right:1px solid black;
+				text-align:center; 
+				width:33.33%;
+				height: 150px;
+			}
+			.borda_tabuleiro_superior_direita{
+				border-bottom:1px solid black;
+				border-left:1px solid black;
+				text-align:center; 
+				width:33.33%;
+				height: 150px;
+			}
+			.borda_tabuleiro_superior_centro{
+				border-bottom:1px solid black;
+				border-left:1px solid black;
+				border-right:1px solid black;
+				text-align:center; 
+				width:33.33%;
+				height: 150px;
+			}
+			.borda_tabuleiro_centro_esquerdo{
+				border-bottom:1px solid black;
+				border-top:1px solid black;
+				border-right:1px solid black;
+				text-align:center; 
+				width:33.33%;
+				height: 150px;
+			}
+			.borda_tabuleiro_centro_direita{
+				border-bottom:1px solid black;
+				border-top:1px solid black;
+				border-left:1px solid black;
+				text-align:center; 
+				width:33.33%;
+				height: 150px;
+			}
+			.borda_tabuleiro_inferior_esquerda{
+				border-top: 1px solid black;
+				border-right:1px solid black;
+				text-align:center; 
+				width:33.33%;
+				height: 150px;
+			}
+			.borda_tabuleiro_inferior_centro{
+				border-top: 1px solid black;
+				border-right:1px solid black;
+				border-left:1px solid black;
+				text-align:center; 
+				width:33.33%;
+				height: 150px;
+			}
+			.borda_tabuleiro_inferior_direita{
+				border-top: 1px solid black;
+				border-left:1px solid black;
+				text-align:center; 
+				width:33.33%;
+				height: 150px;
+			}
+			
+			
+			
+			#cabecalho{
+				position: fixe;
+				height: 200px;
+				background-color: black;
+			}
+			
+			#tabuleiro_game{
+				width: 1010px;
+				height: auto;
+				margin: 0 auto;
+			}
+			
+			
+			.cor_jogadores{
+				border-color: #000000;
+				border-style: dotted;
+				width: 400px;
+				text-align: center;
+				font-family: Lucida Handwriting;
+				font-size: 25px;
+				margin: 0 auto;
+			}
+			
+			.letra{
+				font-family: Lucida Handwriting;
+				font-size: 18px;
+			}
+			
+			
+			#nomes{
+				width: 980;
+				height: auto;
+				margin: 0 auto;
+			}
+			
+			#menu{
+				width: auto;
+				height: auto;
+				margin: 0 auto;
+			}
+			
+			#campo_regras{
+				width: 500px;
+				height: auto;
+				text-align: justify;
+			}
+			
+			#espaco_padrao{
+				width: 980px;
+				heiht: auto;
+				margin: 0 auto;
+			}
+			
+			.placar_game{
+				border-bottom:1px solid black;
+				float: right;
+			}
+		 
+		  </style>
+	</head>
+	<body>
+	
+	<div id="cabecalho">
+		<center><img src="banner2.jpg" height="200px"></center>
+	</div>
+	
+	<div id = "espaco_padrao"> 
+		<div id="menu">
+			<center><input type="button" value="Jogar" style="margin-top:15px; height:25px; width:150px; font-size:14px" onclick="javascript: inicio_game();"/></center>
+			<center><input type="button" value="Regras" style="margin-top:25px; height:25px; width:150px; font-size:14px" onclick="javascript: regras();"/></center>
+		</div>
+	</div>
+	
+	<div id = "espaco_padrao">
+		
+		<!-- CREDITOS -->
+		<h3 id= "creditos1">CRÉDITOS</h3>
+		<p id="creditos2">Guilherme Kodi Abe<br>Luiz Augusto<br>joão Paulo Almeida<br>Brian Soares Nascimento</p>
+		
+		<div id = "campo_regras">
+			<center><h3>Regras do jogo da velha</h3></center>
+			<ul>
+				<li>Cada Jogador é livre para colocar seu símbolo em qualquer lugar do tabuleiro desde que esteja vazio e que seja a sua vez.</li>
+				<li>Ao colocar seu símbolo, a jogada passa para o próximo jogador. Até que algum dos jogadores ganhe, pode ter casos de que o tabuleiro esteja totalmente preenchido e não tiver ganhador, dai se da o critério de velha ("Empate").</li>
+				<li>Vitória: Vence quem primeiro conseguir enfileirar seu símbolo no tabuleiro, pode ser enfileirada tanto na diagonal, quanto vertical ou horizontal.</li>
+				<li>Empate: O crtitério de empate é quando, não há mais espaço para colocar os símbolos deambos os jogadores (Tabuleiro completo), e não tiver ganhador ao final.</li>
+			</ul>
+			<input type="button" id="bt_sair2" value="Voltar ao Menu" style="margin-top:4px; height:25px; width:150px; font-size:14px" onclick="javascript: sair();"/>
+		</div>
+	</div>
+	
+	<div id="nomes">
+		<fieldset class = "cor_jogadores">
+			<legend> Jogadores </legend>
+			<label for="Jogador 1" class = "letra"> Jogador 1: </label>
+			<input type="text" id="jogador1"/> 	<select id="figura1">
+													<option value="<img src='Formas/x.gif' height='50' width='50'>"> X </option>
+													<option value="<img src='Formas/circulo.jpg' height='50' width='50'>"> O </option>
+													<option value="<img src='Formas/batman.jpg' height='50' width='50'>"> Batman </option>
+													<option value="<img src='Formas/biohazard.jpg' height='50' width='50'>"> Biohazard </option>
+													<option value="<img src='Formas/bloggaviao.gif' height='70' width='70'>"> Homenzinhu </option>
+													<option value="<img src='Formas/dino_ultimo.jpg' height='50' width='50'>"> Dinossauro </option>
+													<option value="<img src='Formas/droga.jpg' height='50' width='50'>"> Paz </option>
+													<option value="<img src='Formas/estrela5_b.jpg' height='50' width='50'>"> Estrela 5 </option>
+													<option value="<img src='Formas/estrela6.png' height='50' width='50'>"> Estrela 6 </option>
+													<option value="<img src='Formas/Feng_Shui_3.gif' height='50' width='50'>"> Feng Shui </option>
+													<option value="<img src='Formas/homem.jpg' height='50' width='50'>"> Homem </option>
+													<option value="<img src='Formas/mulher.gif' height='50' width='50'>"> Mulher </option>
+													<option value="<img src='Formas/menina.jpg' height='50' width='50'>"> Menina </option>
+													<option value="<img src='Formas/naruto.jpg' height='50' width='50'>"> Naruto </option>
+													<option value="<img src='Formas/ok.png' height='50' width='50'>"> OK </option>
+													<option value="<img src='Formas/inseto.jpg' height='50' width='50'>"> Inseto </option>
+													<option value="<img src='Formas/seila1.png' height='50' width='50'>"> Kapeta 1 </option>
+													<option value="<img src='Formas/seila2.jpg' height='50' width='50'>"> Kapeta 2 </option>
+													<option value="<img src='Formas/seila3.jpg' height='50' width='50'>"> Radical </option>
+													<option value="<img src='Formas/triangulo_circulo.png' height='50' width='50'>"> Triângulo 1 </option>
+													<option value="<img src='Formas/triangulo_fodah.png' height='50' width='50'>"> Triângulo 2 </option>
+													
+												</select>
+			<label for="Jogador 1" class = "letra"> Jogador 2: </label>
+			<input type="text" id="jogador2"/> 	<select id="figura2">
+													<option value="<img src='Formas/circulo.jpg' height='50' width='50'>"> O </option>
+													<option value="<img src='Formas/x.gif' height='50' width='50'>"> X </option>
+													<option value="<img src='Formas/batman.jpg' height='50' width='50'>"> Batman </option>
+													<option value="<img src='Formas/biohazard.jpg' height='50' width='50'>"> Biohazard </option>
+													<option value="<img src='Formas/bloggaviao.gif' height='60' width='60'>"> Homenzinhu </option>
+													<option value="<img src='Formas/dino_ultimo.jpg' height='50' width='50'>"> Dinossauro </option>
+													<option value="<img src='Formas/droga.jpg' height='50' width='50'>"> Paz </option>
+													<option value="<img src='Formas/estrela5_b.jpg' height='50' width='50'>"> Estrela 5 </option>
+													<option value="<img src='Formas/estrela6.png' height='50' width='50'>"> Estrela 6 </option>
+													<option value="<img src='Formas/Feng_Shui_3.gif' height='50' width='50'>"> Feng Shui </option>
+													<option value="<img src='Formas/homem.jpg' height='50' width='50'>"> Homem </option>
+													<option value="<img src='Formas/mulher.jpg' height='50' width='50'>"> Mulher </option>
+													<option value="<img src='Formas/menina.jpg' height='50' width='50'>"> Menina </option>
+													<option value="<img src='Formas/naruto.jpg' height='50' width='50'>"> Naruto </option>
+													<option value="<img src='Formas/ok.png' height='50' width='50'>"> OK </option>
+													<option value="<img src='Formas/inseto.jpg' height='50' width='50'>"> Inseto </option>
+													<option value="<img src='Formas/seila1.png' height='50' width='50'>"> Kapeta 1 </option>
+													<option value="<img src='Formas/seila2.jpg' height='50' width='50'>"> Kapeta 2 </option>
+													<option value="<img src='Formas/seila3.jpg' height='50' width='50'>"> Radical </option>
+													<option value="<img src='Formas/triangulo_circulo.png' height='50' width='50'>"> Triângulo 1 </option>
+													<option value="<img src='Formas/triangulo_fodah.jpg' height='50' width='50'>"> Triângulo 2 </option>
+												</select>
+		</fieldset>
+			<center><input type="button" value="enviar_nomes" style="margin-top:4px; height:25px; width:150px; font-size:14px" onclick="javascript: inicio_game2();"/></center>
+	</div>
+	
+	<div id="tabuleiro_game">
+		<table class = "placar_game">
+			<tr><td id = "nome_jogador1"></td><td id = "pontos_jogador1" style="color: red;font-size:30px"></td><td> Vs </td><td id = "pontos_jogador2" style="color: red;font-size:30px"></td><td id = "nome_jogador2"></td></tr>
+		</table>
+		
+		<h3 id="jogadorAtual"> </h3>
+		
+		<table class="tabuleiro_campo" width=50% height=250px>
+		<tr class="tabuleiro.tr">
+		<td id="0" class="borda_tabuleiro_superior_esquerdo" onclick="preenchimento(this, 0)">&nbsp;</td>
+		<td id="1" class="borda_tabuleiro_superior_centro" onclick="preenchimento(this, 1)">&nbsp;</td>
+		<td id="2" class="borda_tabuleiro_superior_direita" onclick="preenchimento(this, 2)">&nbsp;</td>
+		</tr>
+		<tr class="tabuleiro.tr">
+		<td id="3" class="borda_tabuleiro_centro_esquerdo" onclick="preenchimento(this, 3)">&nbsp;</td>
+		<td id="4" class="borda_tabuleiro_centro" onclick="preenchimento(this, 4)">&nbsp;</td>
+		<td id="5" class="borda_tabuleiro_centro_direita" onclick="preenchimento(this, 5)">&nbsp;</td>
+		</tr>
+		<tr class="tabuleiro.tr">
+		<td id="6" class="borda_tabuleiro_inferior_esquerda" onclick="preenchimento(this, 6)">&nbsp;</td>
+		<td id="7" class="borda_tabuleiro_inferior_centro" onclick="preenchimento(this, 7)">&nbsp;</td>
+		<td id="8" class="borda_tabuleiro_inferior_direita" onclick="preenchimento(this, 8)">&nbsp;</td>
+		</tr>
+		</table>
+	</div>
+	
+	<center><br><br>
+	<input type="button" id="bt_jogar_novamente" value="Jogar Novamente" style="margin-top:4px; height:25px; width:150px; font-size:14px" onclick="javascript: jogar_novamente();"/>
+	<input type="button" id="bt_sair" value="Voltar ao Menu" style="margin-top:4px; height:25px; width:150px; font-size:14px" onclick="javascript: sair();"/>
+	</center>
+	
+		<!-- inclui a biblioteca JQuery -->
+		<script src="jquery-2.1.1.min.js"></script>
+		
+		<script type="text/javascript">
+		
+		var jogador1, jogador2;
+		//Jogador da rodada
+		var jogadorAtual;
+		var index = null;
+		var formas = [];
+		
+			document.getElementById('nomes').style.visibility = 'hidden';
+			document.getElementById('nomes').style.float = 'left';
+			
+			document.getElementById('campo_regras').style.visibility = 'hidden';
+			document.getElementById('campo_regras').style.position = 'absolute';
+			document.getElementById('campo_regras').style.top = '0';
+			
+			
+			//DEIXA A DIV GAME ESCONDIDA
+			window.onload =	function() { document.getElementById('tabuleiro_game').style.visibility = 'hidden' };
+		
+			//DEIXA A DIV GAME VISIVEL
+			inicio_game =	function() { 
+										document.getElementById('nomes').style.visibility = 'visible';
+										document.getElementById('nomes').style.float = '';
+										document.getElementById('menu').style.visibility = 'hidden';
+										document.getElementById('menu').style.float = 'left';
+										$('h3[id="creditos1"]').hide();
+										$('p[id="creditos2"]').hide();
+										};
+			inicio_game2 = function() { 
+										//PEGANDO AS FIGURAS ESCOLHIDAS
+										var p1 = document.getElementById('figura1').value;
+										var p2 = document.getElementById('figura2').value;
+										formas = [p1, p2];
+										if(p1 != p2){										
+											document.getElementById('nomes').style.visibility = 'hidden';
+											document.getElementById('tabuleiro_game').style.visibility = 'visible';
+											document.getElementById('menu').style.position = 'absolute';
+											document.getElementById('menu').style.bottom = '0';
+											document.getElementById('nomes').style.position = 'absolute';
+											document.getElementById('nomes').style.bottom = '0';
+											initGame();	
+										}
+										else{
+											alert("Figuras iguais ! Escolha figuras diferentes");
+										}
+										};
+			
+			//REGRAS
+			regras = function() {
+										document.getElementById('campo_regras').style.visibility = 'visible';
+										document.getElementById('campo_regras').style.position = '';
+										document.getElementById('campo_regras').style.top = '';
+										document.getElementById('campo_regras').style.margin = '0 auto';
+										document.getElementById('menu').style.visibility = 'hidden';
+										document.getElementById('menu').style.float = 'left';
+										document.getElementById('bt_sair2').style.visibility = 'visible';
+										$('h3[id="creditos1"]').hide();
+										$('p[id="creditos2"]').hide();
+			};
+		
+			/* TABELA - CAMPO
+				0 1 2
+				3 4 5
+				6 7 8
+			*/
+			
+			var tabuleiro = new Array(9);
+			
+			var fim = false;
+			
+			//JOGADORES
+			function jogador(nome, forma) {
+				this.nome = nome;
+				this.forma = forma;
+			}
+			
+			//Escrevendo o nome dos jogadores na tela
+			initGame = function() {
+				var nomeJogador1 = document.getElementById('jogador1').value;
+				var nomeJogador2 = document.getElementById('jogador2').value;
+				jogador1 = new jogador(nomeJogador1, 0); //P1
+				jogador2 = new jogador(nomeJogador2, 1); //P2
+				
+				$('td[id="nome_jogador1"]').html(nomeJogador1);
+				$('td[id="nome_jogador2"]').html(nomeJogador2);
+				atualizar_pontos();
+				
+				jogadorAtual = jogador1;
+				setLabelJogadorAtual();
+			}
+
+			//Reiniciar a partida
+			reset = function() { window.location.reload(); }
+			
+			/*Seta o nome do jogador da rodada na página HTML*/
+			setLabelJogadorAtual = function() {
+				document.getElementById('jogadorAtual').innerHTML = 'Jogador atual:  ' + jogadorAtual.nome;
+			}
+			
+			//DESAPARECENDO BOTAO JOGAR NOVAMENTE E SAIR
+			document.getElementById('bt_jogar_novamente').style.visibility = 'hidden';
+			document.getElementById('bt_sair').style.visibility = 'hidden';
+			
+			//APARECENDO BOTAO JOGAR NOVAMENTE E SAIR
+			aparece_bt = function(){
+				document.getElementById('bt_jogar_novamente').style.visibility = 'visible';
+				document.getElementById('bt_sair').style.visibility = 'visible';
+			}
+			
+			//JOGAR NOVAMENTE
+			jogar_novamente = function() {
+				for(x=0; x<9; x++){
+					tabuleiro[x] = undefined;
+					document.getElementById(x).innerHTML = '&nbsp;';
+					document.getElementById('bt_jogar_novamente').style.visibility = 'hidden';
+					document.getElementById('bt_sair').style.visibility = 'hidden';
+					$('td[id="'+ x +'"]').css("backgroundColor" , "");
+				}
+				fim = false;
+			}
+			
+			//SAIR
+			sair = function(){
+					document.getElementById('bt_sair').style.visibility = 'hidden';
+					reset();
+			}
+			
+			//PLACAR
+			var v1 = 0;
+			var v2 = 0;
+			var ee = 0;
+			
+			//APLICAR RESULTADO
+			atualizar_pontos = function(){
+				$('td[id="pontos_jogador1"]').html(v1);
+				$('td[id="pontos_jogador2"]').html(v2);
+			}
+			
+			//EMPATE
+			velha = function(){
+				var preenchidos = 0;
+				for(var i = 0; i < tabuleiro.length; i++){
+					if(tabuleiro[i] != undefined){ preenchidos++; }
+				}
+				return preenchidos == tabuleiro.length;
+			}
+			
+			//VITORIA - LINHAS
+			analisar_linhas = function() {
+				for( var i = 0; i < 7; i += 3) {
+					if ( tabuleiro[i] == formas[0] && tabuleiro[i + 1] == formas[0] && tabuleiro[i + 2] == formas[0] ) { 
+						alert (jogador1.nome+' Venceu!!!');
+						if(fim != true){ v1 = v1 + 1; }
+						atualizar_pontos();
+						fim = true;
+						aparece_bt();
+						$('td[id="'+ i +'"]').css("backgroundColor" , "red");
+						$('td[id="'+ (i+1) +'"]').css("backgroundColor" , "red");
+						$('td[id="'+ (i+2) +'"]').css("backgroundColor" , "red");
+					
+					}
+					if ( tabuleiro[i] == formas[1] && tabuleiro[i + 1] == formas[1] && tabuleiro[i + 2] == formas[1] ) {
+						alert (jogador2.nome+' Venceu!!!');
+						if(fim != true){ v2 = v2 + 1; }
+						atualizar_pontos();
+						fim = true;
+						aparece_bt();
+						$('td[id="'+ i +'"]').css("backgroundColor" , "red");
+						$('td[id="'+ (i+1) +'"]').css("backgroundColor" , "red");
+						$('td[id="'+ (i+2) +'"]').css("backgroundColor" , "red");
+				
+					}
+				}
+			}
+			
+			//VITORIA - COLUNAS
+			analisar_colunas = function() {
+				for( var i = 0; i < 3; i++) {
+					if ( tabuleiro[i] == formas[0] && tabuleiro[i + 3] == formas[0] && tabuleiro[i + 6] == formas[0] ) { 
+						alert (jogador1.nome+' Venceu!!!');
+						if(fim != true){ v1 = v1 + 1; }
+						atualizar_pontos();
+						fim = true;
+						aparece_bt();
+						$('td[id="'+ i +'"]').css("backgroundColor" , "red");
+						$('td[id="'+ (i+3) +'"]').css("backgroundColor" , "red");
+						$('td[id="'+ (i+6) +'"]').css("backgroundColor" , "red");
+					}
+					if ( tabuleiro[i] == formas[1] && tabuleiro[i + 3] == formas[1] && tabuleiro[i + 6] == formas[1] ) {
+						alert (jogador2.nome+' Venceu!!!');
+						if(fim != true){ v2 = v2 + 1; }
+						atualizar_pontos();
+						fim = true;
+						aparece_bt();
+						$('td[id="'+ i +'"]').css("backgroundColor" , "red");
+						$('td[id="'+ (i+3) +'"]').css("backgroundColor" , "red");
+						$('td[id="'+ (i+6) +'"]').css("backgroundColor" , "red");
+					}
+				}
+	 
+			}
+	 
+			//VITORIA - DIAGONAIS
+			analisar_diagonais = function() {
+				if ( (tabuleiro[0] == formas[0] && tabuleiro[4] == formas[0] && tabuleiro[8] == formas[0]) ){
+					alert (jogador1.nome+' Venceu!!!');
+					if(fim != true){ v1 = v1 + 1; }
+					atualizar_pontos();
+					fim = true;
+					aparece_bt();
+					$('td[id="'+ 0 +'"]').css("backgroundColor" , "red");
+					$('td[id="'+ 4 +'"]').css("backgroundColor" , "red");
+					$('td[id="'+ 8 +'"]').css("backgroundColor" , "red");
+				}
+				if(tabuleiro[2] == formas[0] && tabuleiro[4] == formas[0] && tabuleiro[6] == formas[0]){
+					alert (jogador1.nome+' Venceu!!!');
+					if(fim != true){ v1 = v1 + 1; }
+					atualizar_pontos();
+					fim = true;
+					aparece_bt();
+					$('td[id="'+ 2 +'"]').css("backgroundColor" , "red");
+					$('td[id="'+ 4 +'"]').css("backgroundColor" , "red");
+					$('td[id="'+ 6 +'"]').css("backgroundColor" , "red");
+				}
+				
+				if( (tabuleiro[0] == formas[1] && tabuleiro[4] == formas[1] && tabuleiro[8] == formas[1])){
+					alert (jogador2.nome + ' Venceu!!!');
+					if(fim != true){ v2 = v2 + 1; }
+					atualizar_pontos();
+					fim = true;
+					aparece_bt();
+					$('td[id="'+ 0 +'"]').css("backgroundColor" , "red");
+					$('td[id="'+ 4 +'"]').css("backgroundColor" , "red");
+					$('td[id="'+ 8 +'"]').css("backgroundColor" , "red");
+				}
+				if(tabuleiro[2] == formas[1] && tabuleiro[4] == formas[1] && tabuleiro[6] == formas[1]) {
+					alert (jogador2.nome + ' Venceu!!!');
+					if(fim != true){ v2 = v2 + 1; }
+					atualizar_pontos();
+					fim = true;
+					aparece_bt();
+					$('td[id="'+ 2 +'"]').css("backgroundColor" , "red");
+					$('td[id="'+ 4 +'"]').css("backgroundColor" , "red");
+					$('td[id="'+ 6 +'"]').css("backgroundColor" , "red");
+						
+				} 
+			}
+			
+			//PREENCHENDO
+			preenchimento = function(local, posicao) {
+				if((tabuleiro[posicao] == undefined) && (fim != true)){
+					local.innerHTML = formas[jogadorAtual.forma];
+					tabuleiro[posicao] = formas[jogadorAtual.forma];
+					
+					//define o jogador da rodada
+					(jogadorAtual.forma == 0) ? jogadorAtual = jogador2 : jogadorAtual = jogador1;
+					setLabelJogadorAtual();
+				}
+				else{
+					alert("Campo preenchido, ESCOLHA OUTRO !");
+				}
+				analisar_linhas();
+				analisar_colunas();
+				analisar_diagonais();
+				
+				if((velha()) && (fim != true)){
+					ee = ee + 1;
+					alert("VELHA !");
+					aparece_bt();
+				}
+			}
+		
+		</script>
+	
+	</body>
+</html>
